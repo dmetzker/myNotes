@@ -174,5 +174,6 @@ In the above, both fn1 and fn2 will execute when click is detected on event targ
 -----------------------------------------------------------------
 
 I made this note in the office. Let's see if I can get it. 
+This is my second note that I saved without VS code. Let's see if I can push via git bash.
 
 
