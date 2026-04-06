@@ -1,0 +1,178 @@
+DOM
+stands for document object model
+In essence, browser takes the html code, and parse it (breaks it apart),
+then builds a DOM tree with the html code. Each tag, attribute, content, etc. becomes a node OBJECT in memory that has properties that JS can access
+EX: <div class="blue">Hello</div>
+In DOM, div becomes an OBJECT like below:
+{
+  tagName: 'DIV',
+  classList: ['blue'],
+  innerText: 'Hello',
+  style: { ... },
+  ...
+}
+
+-----------------------------------------------------------------
+.innerHTML
+"returns whatever is between the opening and closing bracket" It does not have to be just content. It can be entire element/element blocks.
+EX: <div id="box">
+     <p>Hello</p>
+    </div>
+//If I do .innerHTML on the Box, it will return <p>Hello</p>, not just Hello.
+-----------------------------------------------------------------
+.querySelector
+VERY POWERFUL!!
+allows us to use css selectors to access DOM elements w/ javascript
+EX: document.querySelector('p');
+//specify a css selector as a string and returns the first element that matches that selector.
+//example above would return the first paragraph in the document.
+-----------------------------------------------------------------
+.getElementById
+EX: document.getElementById('bio').innerHTML = 'The description';
+
+*IMPORTANT* The difference between .querySelector and .getElementById is that .querySelector can select ANY CSS selectors.
+//document.querySelector("#box");     // by ID
+document.querySelector(".item");    // by class
+document.querySelector("div > p");  // complex selector
+
+-----------------------------------------------------------------
+.getElementsByClassName & .getElementsByTagName
+return an array of all the elements with that class/tag name. Must use bracket to access the correct element
+
+EX: document.getElementsByClassName('student')[0].innerHTML = 'Not yet registered';
+// Set first element of .student class as 'Not yet registered'
+
+EX: document.getElementsByTagName('li')[1].innerHTML = 'Cedric Diggory`;
+// Set second <li> tag as 'Cedric Diggory'
+
+*IMPORTANT*
+let blueElement = document.querySelector('.blue');
+blueElement.style.backgroundColor = 'blue';
+browser turns html codes into nodes of objects called DOM.
+document.querySelector('.blue') access the first node that matches .blue and returns the OBJECT and assign it to blueElement.
+Since blueElement is a variable that reference the object, we can use the variable to access the object's properties.
+
+Also, the ".style" automatically apply css properties that you would normally add in stylesheet.
+However, since JS cannot read hyphen, you must use camel style. background-color becomes backgroundColor
+-----------------------------------------------------------------
+parentNode & children
+
+<ul id='groceries'>
+  <li id='must-have'>Toilet Paper</li>
+  <li>Apples</li>
+  <li>Chocolate</li>
+  <li>Dumplings</li>
+</ul>
+
+let parentElement = document.getElementById('must-have').parentNode; // returns <ul> element
+let childElements = document.getElementById('groceries').children; // returns an array of <li> elements
+-----------------------------------------------------------------
+create/inserting new element via JS
+.createElement()
+create new element based on the tag passed in as argument
+EX: let paragraph = document.createElement('p');
+JS creates this element object and assigned it to variable paragraph. However, it's NOT in the document because
+we never specified where this <p> is going to be placed at. We simply created this element.
+
+EX: paragraph.id = 'info'; 
+    paragraph.innerHTML = 'The text inside the paragraph';
+next we assign properties to this element like content, attributes, etc.
+
+In order to add the element to the document, we need to append it
+EX: document.body.appendChild(paragraph);
+Here we tell the browser to append the paragraph element to body
+*IMPORTANT* browser append the element as the last child of that parent.
+
+EX: document.querySelector('#italy-attractions').appendChild(newAttraction);
+If you need to put a new element inside the document somewhere specific, you must first get that element object
+using .querySelector, getElementById, etc then call the appendChild property on that element object.
+-----------------------------------------------------------------
+Hide an element
+EX: let paragraph = document.querySelector('p');
+    document.body.removeChild(paragraph);
+First we get the first p element via querySelector and reference that node object by variable paragraph
+Next we remove that element via removeChild from the body (in this case)
+*IMPORTANT* removeChild only works if the element you're removing is a direct child of the parent you're calling from.
+In the example above, that code only works if the html look like this:
+<body>
+  <p>Hello</p>
+</body>
+
+If it looked like the structure below, the code will not work
+<body>
+  <div>
+    <p>Hello</p>
+  </div>
+</body>
+-----------------------------------------------------------------
+.onclick
+The onclick property allows you to assign a function to run on when click event happens on an element. 
+let element = document.querySelector('button');
+
+function turnButtonRed(){
+  // Add code to turn button red
+  this.style.backgroundColor = 'red';
+  this.style.color = 'white';
+  this.innerHTML = 'Red Button';
+}
+
+element.onclick = turnButtonRed;
+Here, element is an object and onclick is a property of the object. 
+Before we set the fuction to onclick, onclick is set to null.
+Think of it like this: element = {onclick: null, ......}
+We then set turnButtonRed function to onclick, so now the object looks like
+{onclick: turnButtonRed(), ......}
+
+-----------------------------------------------------------------
+
+Events at the simplest explanation is something that happened in the browser.
+Webpages just sit there....waiting until something happens. That something can be mouse moving, clicking, keyboard typing, etc. When something happens on the webpage, it is called an event. 
+
+Event target and event handler
+We can have a DOM element listen for a specific event that is detected on itself, and then execute a block of code. That DOM element is called the event target, and the block of code that is executed is called the event handler. 
+
+EX: let eventTarget = document.getElementById('targetElement');
+
+eventTarget.addEventListener('click', function() {
+
+});
+
+The addEventListenter is a method on the event target object from DOM.
+It takes in 2 arguments: a event name (what kind of event) and a function that will execute when the event is triggered on the event target.
+
+*IMPORTANT* Instead of using an anonymous function, we can also create a function and pass it as an argument later.
+
+EX:
+function eventHandlerFunction() {
+  // this block of code will run when click event happens
+}
+
+eventTarget.addEventListener('click', eventHandlerFunction);
+
+-----------------------------------------------------------------
+
+.on
+Another way to add event handler other than .addEventListener() is to add "on" to the beginning of event type name. 
+
+EX: eventTarget.onclick = eventHandlerFunction;
+
+In the above code, we want to add an event handler to eventTarget with the event being a mouse click. We use on infront of the click type like so .onclick and set it to the function that will be executed.
+onclick is actually a DOM property. Developers of DOM made MOST event types as object properties so you can just add 'on' in front of the event type to make it match the DOM property. 
+
+*IMPORTANT* one limitation of 'on' is that it can only register one function to an event target, while .addEventListener can register multiple functions at once. 
+
+element.onclick = fn1;
+element.onclick = fn2;
+
+In the above, fn1 will be overwritten by fn2
+
+element.addEventListener('click', fn1);
+element.addEventListener('click', fn2);
+
+In the above, both fn1 and fn2 will execute when click is detected on event target. 
+
+-----------------------------------------------------------------
+
+
+
+
