@@ -1,0 +1,39 @@
+Think of the colon (:) in pseudo-class as a selector chain.
+Instead of a.hover, we have a:hover to indicate that the selector is only activated if it's a AND hovered,
+much like selector chain i.e. a.hover (assuming hover is another regular class), then a.hover is element a AND has hover class.
+
+Link state:
+links have 4 states: normal, hover, active, visited.
+:active is a pseudo-class selects and style an element hat is currently being actived such as mouse click. This state typically lasts for a brief moment between the user pressing the mouse button and releasing it.
+
+EX: a:active {
+                color: red;
+             }
+
+To see it, click on the anchor BUT DO NOT release it, you'll see the text turn red. If you click and release really fast, you may not see it. 
+
+:active can have multiple uses where you want to do something as soon as a link is clicked such as having a pop-up, etc.
+
+<button>
+IMPORTANT: the <button> is a semantic element. You can in theory create everything a button can do with <div> element but <button> create built in accessibility for browser.
+
+IMPORTANT: When you create a new rule in css to override a property, you only override that property. All the other properties in the old rule still applies.
+EX: button:hover {
+                    cursor: pointer;
+                    background-color: red;
+                   }
+
+     .button1:hover {
+                     background-color: green;
+                     }
+In the above, the button1 class overrides the general button element by making the hovering background color green. BUT that is the only property overridden. When you hover over button1 element, the mouse still turns to pointer from the general button element rule. 
+
+QUESTION: <h2> If you have a padding of 40px and width of 200px. What is the size of box? What is width? Is that the width of content or width of box?
+
+Text-align is inherited to all child elements.
+For example, when you have a <div> with <h2> and <div><h2></div> inside. And you apply the text-align to the parent <div>, it will affect the h2 inside, the div inside, and the h2 inside the child div.
+
+
+
+
+

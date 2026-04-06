@@ -1,0 +1,24 @@
+Objects
+
+object keys can contain spaces and special characters if you enclose it in quotes.
+
+For valid identifiers, you can use the dot notation to access the value of a key. For invalid identifiers, you must use the bracket notation.
+
+EX: let obj = {key1: 25, "key 2": 30}
+
+obj.key1 = 25
+obj["key 2"] = 30
+
+You can also access key1 using the bracket notation, but ALL bracket notation must use quotes irrespective of valid or invalid.
+
+QUESTION: what are static methods in javascript? What is Object.keys()?
+
+Getting an Object's Keys:
+Object.keys(obj)
+returns object's keys as an array
+
+Getting an Object's keys and values:
+Object.entries(obj)
+returns an array of two-element arrays where the first element is the key and the second element is the value.
+
+
