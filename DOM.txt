@@ -173,7 +173,39 @@ In the above, both fn1 and fn2 will execute when click is detected on event targ
 
 -----------------------------------------------------------------
 
-I made this note in the office. Let's see if I can get it. 
-This is my second note that I saved without VS code. Let's see if I can push via git bash.
+Removing an eventlistener.
+Sometimes you want to remove an eventlistener after an event has happened to prevent the user from keeping
+activating the event over and over again.
+EX: eventTarget.removeEventListener('click', eventHandlerFunction);
 
+EX:
+  function showFortune(){
+  fortune.innerHTML = fortuneSelector();
+  button.innerHTML = "Come back tomorrow!";
+  button.style.cursor = "default";
+  button.removeEventListener('click', showFortune);
+}
+
+button.addEventListener('click', showFortune);
+
+Here we add the removeEventListener inside the showFortune itself. So when showFortune runs, the last step
+it will do is to remove the Eventlistener.
+
+-----------------------------------------------------------------
+
+When you trigger an event, JS makes the event into an object with its own properties and methods.
+You can then use the event object properties and methods
+
+EX: 
+function eventHandlerFunction(event){
+   console.log(event.timeStamp);
+}
+
+eventTarget.addEventListener('click', eventHandlerFunction);
+
+Here the click event is passed into the eventHandlerFunction as an object automatically by JS
+So when click is trigger, the object pass into the function, and a click object property called .timeStamp is called.
+
+*IMPORTANT*, the "event" word is a dummy variable. JS simply pass the event object as the FIRST parameter.
+So if you have eventHandlerFunction(obj1, obj2, event), the event object is passed into obj1. The word "event" is irrelevant.
 
