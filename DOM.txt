@@ -209,3 +209,19 @@ So when click is trigger, the object pass into the function, and a click object 
 *IMPORTANT*, the "event" word is a dummy variable. JS simply pass the event object as the FIRST parameter.
 So if you have eventHandlerFunction(obj1, obj2, event), the event object is passed into obj1. The word "event" is irrelevant.
 
+Best Analogy: You click a button → the browser hands your function a report. That report is the event Object.
+
+That report (event object) says:
+“This was a click”
+“It happened at this time”
+“It happened on this element”
+“Mouse was here”
+
+-----------------------------------------------------------------
+
+One of the properties of an event object is another object called target. (remember, an object can have another object as property).
+
+event.target
+
+It returns "The exact DOM element that triggered the event"
+
