@@ -225,3 +225,54 @@ event.target
 
 It returns "The exact DOM element that triggered the event"
 
+-----------------------------------------------------------------
+
+Forms are a great way to collect user input data and sent the information to another location like another page, or
+to the backend database.
+
+EX: 
+<form action="/example.html" method="POST">
+</form>
+
+Above is the basic skeleton of a form. The action determines where the information is sent off to and retrieved and method is an http verb
+telling the browser how it should be sent (where you want to get data or post new data).
+*IMPORTANT* <form> itself is like <div>, it has no physical look on its own. You need to put other elements like <h1>, <p>, etc
+inside it to show up on a page.
+
+-----------------------------------------------------------------
+
+<input>
+
+This is how user actually input data.
+
+EX:
+<form action="/example.html" method="POST">
+  <input type="text" name="first-text-field">
+</form>
+
+In the above, <form> has no visual on the screen (much like <div>)
+As soon as we add <input>, browser will but a "textbox" on the screen so user can input data.
+The type tells what kind of data the user will input. The type also change the input box.
+For example, if we change type="radio", the browser will replace the textbox with a radio circle to click on.
+The name is the "key" that browser will associate with our input when it sends the information off. Without the name,
+the browser will not send data.
+*IMPORTANT* Notice that <input> has no closing tag.
+
+-----------------------------------------------------------------
+
+<label>
+
+Label help explain to users what the input is for, especially sites with many input boxes
+
+EX:
+<form action="/example.html" method="POST">
+  <label for="meal">What do you want to eat?</label>
+  <input type="text" name="food" id="meal">
+</form>
+
+Here, the label is next to the input box.
+Labels are by default, inline elements. In other words, they are next to the input box.
+You can use CSS to change label to block level if you want label {display: block}
+It is crucial to associate label with the correct input box. In label, we use "for" and
+that value is the same as "id" in input.
+
