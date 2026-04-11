@@ -276,3 +276,31 @@ You can use CSS to change label to block level if you want label {display: block
 It is crucial to associate label with the correct input box. In label, we use "for" and
 that value is the same as "id" in input.
 
+-----------------------------------------------------------------
+
+<type="password">
+
+The password type replaces input text with another character such as asterisk or dot.
+
+EX: 
+<form>
+  <label for="user-password">Password: </label>
+  <input type="password" id="user-password" name="user-password">
+</form>
+
+The <input> still create a textbox but when user type into the box, the characters are asterisk. 
+
+-----------------------------------------------------------------
+
+<type="number">
+
+The number type allows user to input numbers, which can be used to do calculations on the backend.
+
+EX:
+<form>
+  <label for="years"> Years of experience: </label>
+  <input id="years" name="years" type="number" step="1">
+</form>
+
+The step creates an up/down arrow to increase/decrease by the value in step. In the above code, the up/down arrow
+increase/decrease by 1.
