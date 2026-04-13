@@ -304,3 +304,172 @@ EX:
 
 The step creates an up/down arrow to increase/decrease by the value in step. In the above code, the up/down arrow
 increase/decrease by 1.
+
+-----------------------------------------------------------------
+
+<type="range">
+
+This creates a slider between a range of numbers, which limits the user to a certain number of inputs.
+
+EX:
+<form>
+  <label for="volume"> Volume Control</label>
+  <input id="volume" name="volume" type="range" min="0" max="100" step="1">
+</form>
+
+-----------------------------------------------------------------
+
+<type="checkbox">
+
+Allow the user to choose multiple options
+
+EX:
+<form>
+  <p>Choose your pizza toppings:</p>
+  <label for="cheese">Extra cheese</label>
+  <input id="cheese" name="topping" type="checkbox" value="cheese">
+  <br>
+  <label for="pepperoni">Pepperoni</label>
+  <input id="pepperoni" name="topping" type="checkbox" value="pepperoni">
+  <br>
+  <label for="anchovy">Anchovy</label>
+  <input id="anchovy" name="topping" type="checkbox" value="anchovy">
+</form>
+
+*IMPORTANT* The value tells what value to sent if the checkbox is checked. By having a value there does NOT mean
+the value will be sent, it just tells the browser if the checkbox is checked, then this is the value that will be sent.
+Also, notice that name above are all the same. Names are not like id. It does NOT need to be unique.
+The name acts as a key in key-value pairs (with value being the value pair).
+So when you check multiple boxes: what is sent looks like topping=cheese&pepperoni&anchovy
+
+-----------------------------------------------------------------
+
+<type="radio">
+
+Unlike checkbox where user can click on multiple options, a radio only allows user to click on one option.
+This is important for things like agree/disagree on conditions (for example)
+
+EX:
+<form>
+  <p>What is sum of 1 + 1?</p>
+  <input type="radio" id="two" name="answer" value="2">
+  <label for="two">2</label>
+  <br>
+  <input type="radio" id="eleven" name="answer" value="11">
+  <label for="eleven">11</label>
+</form>
+
+-----------------------------------------------------------------
+
+Dropdown list
+
+EX:
+<form>
+  <label for="lunch">What's for lunch?</label>
+  <select id="lunch" name="lunch">
+    <option value="pizza">Pizza</option>
+    <option value="curry">Curry</option>
+    <option value="salad">Salad</option>
+    <option value="ramen">Ramen</option>
+    <option value="tacos">Tacos</option>
+  </select>
+</form>
+
+Notice that for dropdown, it does not use <input> but rather it uses <select>. This is why there is no 
+type="dropdown". The type only works inside <input>.
+
+-----------------------------------------------------------------
+
+Datalist input
+
+Unlike <section> dropdown which restrict the user to only the dropdown choices, datalist gave a dropdown list BUT also
+allow the user to type in answer.
+
+<form>
+  <label for="city">Ideal city to visit?</label>
+  <input type="text" list="cities" id="city" name="city">
+
+  <datalist id="cities">
+    <option value="New York City"></option>
+    <option value="Tokyo"></option>
+    <option value="Barcelona"></option>
+    <option value="Mexico City"></option>
+    <option value="Melbourne"></option>
+    <option value="Other"></option>  
+  </datalist>
+</form>
+
+In the above, input type is text. Notice that there is a new category in <input> called list.
+It matches with the id in datalist.
+
+-----------------------------------------------------------------
+
+textarea
+
+If a user need to write more information, then <input type='text'> is not efficient.
+For that we can use <textarea>
+
+<form>
+  <label for="blog">New Blog Post: </label>
+  <br>
+  <textarea id="blog" name="blog" rows="5" cols="30">
+  </textarea>
+</form>
+
+In the above, rows and column indicate how big the text box will be. It does NOT restrict how much you can write.
+In other words, if you write more, the browser will automatically create a scrollbar.
+But the box size will stay as 5 rows and 30 column wide.
+
+-----------------------------------------------------------------
+
+<type='submit'>
+
+To submit a form, html <input> has another type called 'submit'
+
+EX:
+<form>
+  <input type="submit" value="Send">
+</form>
+
+Here the value means what is actually written on the submit button. In this case, the button reads send.
+
+-----------------------------------------------------------------
+
+required
+
+You can use the word required to make certain form not optional such as name, SSN, etc.
+User must fill them out to submit the form.
+
+EX:
+<input type="number" name="guess" id="guess" required>
+
+-----------------------------------------------------------------
+
+Set a minimum/maximum value
+
+<input type="number" name="guess" id="guess" required min='1' max='10'>
+
+The above code sets a min and max number value.
+
+-----------------------------------------------------------------
+
+Set min/max value for text length
+
+<input id="summary" name="summary" type="text" minlength="5" maxlength="250" required>
+
+-----------------------------------------------------------------
+
+pattern matching
+
+what if you want the user to put into the textbox a specific format like 14 or 16 digit credit card number?
+
+EX:
+<form action="/example.html" method="POST">
+  <label for="payment">Credit Card Number (no spaces):</label>
+  <br>
+  <input id="payment" name="payment" type="text" required pattern="[0-9]{14,16}">
+  <input type="submit" value="Submit">
+</form>
+
+Here pattern allows you to input any javascript regular expression (regex).
+In the above, we tell the browser to only allow numbers 0 to 9 and the length must be 14 to 16 digits
