@@ -126,10 +126,12 @@ We then set turnButtonRed function to onclick, so now the object looks like
 -----------------------------------------------------------------
 
 Events at the simplest explanation is something that happened in the browser.
-Webpages just sit there....waiting until something happens. That something can be mouse moving, clicking, keyboard typing, etc. When something happens on the webpage, it is called an event. 
+Webpages just sit there....waiting until something happens. That something can be mouse moving, clicking, keyboard typing, etc.
+When something happens on the webpage, it is called an event. 
 
 Event target and event handler
-We can have a DOM element listen for a specific event that is detected on itself, and then execute a block of code. That DOM element is called the event target, and the block of code that is executed is called the event handler. 
+We can have a DOM element (which is an object) listen for a specific event that is detected on itself, and then execute a block of code. 
+That DOM element is called the event target, and the block of code that is executed is called the event handler. 
 
 EX: let eventTarget = document.getElementById('targetElement');
 
