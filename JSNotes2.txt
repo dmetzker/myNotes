@@ -21,4 +21,6 @@ Getting an Object's keys and values:
 Object.entries(obj)
 returns an array of two-element arrays where the first element is the key and the second element is the value.
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
 
