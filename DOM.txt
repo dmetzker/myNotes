@@ -12,6 +12,15 @@ In DOM, div becomes an OBJECT like below:
   ...
 }
 
+It is important to understand that when browser parse the HTML to build a DOM tree, the attributes inside becomes properties
+of the DOM element object.
+EX:
+<p class="box" id="main">
+
+
+el.className  // "box"
+el.id         // "main"
+
 -----------------------------------------------------------------
 .innerHTML
 "returns whatever is between the opening and closing bracket" It does not have to be just content. It can be entire element/element blocks.

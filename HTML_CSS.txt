@@ -1,0 +1,20 @@
+p {
+    color: blue;
+}
+
+p is called a selector, color is the property, and blue is the value.
+
+--------------------------------------------------------------------------------------------
+Multiple class selection
+
+You can add multiple classes to an element by using a space, all within the quotes.
+
+EX:
+<div class="box active highlighted"></div>
+
+Here, the <div> belongs to class box, class active, and class highlighted.
+
+*IMPORTANT* Unlike class, you cannot have multiple IDs per element.
+
+You can, however, add a class & ID to an element, just not multiple IDs.
+Allowed: <h1 class='title' id='article-title'>
