@@ -18,3 +18,739 @@ Here, the <div> belongs to class box, class active, and class highlighted.
 
 You can, however, add a class & ID to an element, just not multiple IDs.
 Allowed: <h1 class='title' id='article-title'>
+
+--------------------------------------------------------------------------------------------
+
+You can target all elements that have specific attribute in tag.
+
+EX:
+[href] {
+    color: magenta;
+}
+
+Here you can target all elements with href inside.
+
+------------------------------------------------------------------------------------------------
+
+You can also target classes with certain keyword or substring.
+
+EX:
+[class*='chapter'] {
+}
+
+It selects any element whose class attribute contains the substring "chapter" anywhere inside it.
+
+-----------------------------------------------------------------------------------------------
+
+You can also target only h1 element with a class attribute.
+
+EX:
+h1[class] {}
+
+Here, you are telling the browswer to select only h1 elements that have class attribute inside.
+
+--------------------------------------------------------------------------------------------------
+
+Pseudo-class allow you to style an element ONLY IF a state or condition is true.
+
+EX:
+a:hover {
+  color: red;
+}
+
+Here, link <a> will turn red only if mouse is hovered over it. 
+
+*IMPORTANT* Pseudo class does NOT create a new element, it only styles it when a condition is true.
+
+--------------------------------------------------------------------------------------------------
+
+Specificity:
+
+In CSS, the order that browswer knows to display is follows:
+inline > id > class/attribute/pseudo class > element selector
+
+*IMPORTANT* inline always wins
+
+EX:
+<p id="text" style="color: red;">Hello</p>
+#text {
+  color: blue;
+}
+Result: red, because inline overrides the ID selector.
+
+--------------------------------------------------------------------------------------------------
+
+chaining vs descendant combinator vs multiple selector vs adjacent sibling combinator:
+
+EX:
+<div>
+    <p class="highlight">Hello 1</p> 
+    <p>Hello 2</p>                   
+    <div class="highlight"><p>hello 3</p></div>
+</div>
+
+Chaining allows you to select very specific element that match all specified conditions.
+p.highlight {color: red} changes Hello 1 to red. 
+Notice there is no space between p and .highlight.
+Think of chaining as AND in logic. It says target element that is <p> AND have class highlight
+
+descendant combinator target descendants of ancestor element
+div .highlight {color: red} changes both Hello 1 and Hello 3 to red.
+Notice there is a space between div and .highlight
+
+multiple selectors allows you to select elements that match one of the conditions.
+p, .highlight {color: red} changes Hello 1, Hello 2, Hello 3 all into red
+Notice there is a comma.
+Think of it as OR in logic. It says target element that is p OR has class .highlight.
+
+adjacent sibling combinator allows you to select element if some other element is before it
+(think conditional statements in logic)
+p+p {color: red} changes Hello 2 and Hello 3 to red. It uses a plus sign.
+The above states "select p only if p is the element right before it. 
+
+--------------------------------------------------------------------------------------------------
+
+Padding vs Margin:
+
+*IMPORTANT* margin is considered OUTSIDE of the box.
+Biggiest difference between padding and margin is that margin can autocollapse vertically
+while padding cannot because padding is defined as part of the box.
+
+--------------------------------------------------------------------------------------------------
+
+border radius:
+
+Make the border edge round.
+
+EX:
+{
+    border: 3px solid blue;
+    border-radius: 5px;
+}
+
+--------------------------------------------------------------------------------------------------
+
+padding:
+space between content and border.
+
+EX:
+p {
+  height: 80px;
+  padding: 10px;
+  border: 1px solid black;
+}
+
+*IMPORTANT* height refers to the height of the content, NOT the height of the whole paragraph <p>.
+If there is no padding and no border, then height = whole <p> since content is the same as <p>
+but above, the height of content is 80 and the <p> has a total height of 80px + 2 * 10px + 2 * 1px = 102px
+
+padding shorthand:
+{
+    padding: 6px 11px 4px 9px; // top right bottom left
+}
+
+--------------------------------------------------------------------------------------------------
+
+Auto set margins
+
+div.headline {
+  width: 400px;
+  margin: 0 auto;
+}
+
+The child box is set to 400px, and the parent container (assuming bigger than 400px).
+0 means top/bottom is set to no margin. The left and right is auto, meaning browser figures out how to split
+This sets the child contain center relative to parent container.
+
+--------------------------------------------------------------------------------------------------
+
+min/max of an element box
+
+p {
+    min-width: 300px;
+    max-width: 600px;
+}
+
+*IMPORTANT* if the parent container is smaller than child container, then content in child container will
+overflow the parent by default. We can, however, change this behavior below.
+
+--------------------------------------------------------------------------------------------------
+
+overflow
+You can control how the content will look when it overflows the container
+
+.parent {
+  width: 200px;
+  overflow: auto;
+}
+
+overflow: visible;   /* default. child overflow outside the parent */
+overflow: hidden;  /* cuts off content */
+overflow: scroll;  /* always shows scrollbars */
+overflow: auto;    /* shows scrollbars only if needed */
+
+*IMPORTANT* Where do you apply the overflow property? The content, child box, parent box?
+Answer: You apply the overflow property on the container that will handle the overflow.
+In this case, it is the parent container.
+Think: “What should this box do when its content is too big?” The parent box must worry about this.
+
+--------------------------------------------------------------------------------------------------
+
+display: none vs visibility: hidden
+
+{display: none} // entire element is removed from web page display
+{visibility: hidden} // only hides the content but the space for it will be displayed.
+
+--------------------------------------------------------------------------------------------------
+
+box-sizing: border-box
+
+By setting box-sizing to border-box, the exact dimension is set in stone and content width is auto adjusted.
+
+--------------------------------------------------------------------------------------------------
+
+position: relative
+
+EX:
+.element {
+  position: relative;
+  top: 10px;
+  left: 20px;
+}
+
+position relative allows you to move the element "visually" while reserving the original position.
+In the above example, .element container is moved down 10px and right 20px from its original position, while
+its original position is still reserved.
+*IMPORTANT* The original position is still part of normal flow but the visual position is not part of normal flow.
+In other words, .element container is part of a parent container, the parent container calculates its size based
+on the original position, not the visual position. So a shift can move the .element ouside of the parent container.
+
+--------------------------------------------------------------------------------------------------
+
+position: absolute
+
+.parent {
+  position: relative;
+  border: 100px solid black;
+  padding: 20px;
+}
+
+.child {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+Absolute child is positioned relative to the closest ancestor that has a “positioned” value — 
+not necessarily its direct parent.
+Here .child is taken out of normal flow and placed relative to .parent
+By "position relative", it means “use that closest ancestor as the coordinate system origin (0,0)”
+
+*IMPORTANT* The child starts at the inside edge of the border, meaning:
+the boundary between border and padding.
+The child does NOT start at:
+the outer edge of the border (the side facing the margin / outside world)
+
+--------------------------------------------------------------------------------------------------
+
+position: fixed:
+
+Position this element relative to the viewport (the screen), and ignore normal document flow.
+
+#box {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+Here the #box is placed on top left corner of the screen and will stay there if when you scroll.
+
+--------------------------------------------------------------------------------------------------
+
+display: inline
+
+can make any element inline
+
+*IMPORTANT* change two element to inline does NOT mean those two elements "MUST" occupy one line.
+It means they can fit one line if space allows it. If not, they'll fit 2 or more lines.
+
+*IMPORTANT* Only takes up as much space as needed. In other words, you cannot set height and width.
+
+--------------------------------------------------------------------------------------------------
+
+display: block
+
+block element fill the entire width of page
+
+--------------------------------------------------------------------------------------------------
+
+display: inline-block
+
+what if you want to be able to set height and width like block but also have 2 or more blocks on
+same line like inline.
+inline-block is the best of both worlds.
+
+EX:
+<div class="box1">hello</div>
+<div class="box2">world</div>
+
+.box1 {
+  height: 80px;
+  width: 200px;
+  display: inline-block;
+}
+
+.box2 {
+  height: 20px;
+  width: 100px;
+  display: inline-block;
+}
+
+Here .box1 and .box2 both sit next to each other.
+*IMPORTANT* This is crucial. BOTH .box1 and .box2 must be set to inline-block to work.
+Notice that width for .box1 and .box2 are short enough that both can sit together.
+But because both are block level, it occupies its own row even if the container is smaller than whole row.
+So setting one to inline-block will not help because the other still has its own row due to being block.
+
+--------------------------------------------------------------------------------------------------
+
+pseudo-element
+
+allows you to insert content before or after an element's actual content
+
+EX:
+<p>world</p>
+
+p::before {
+  content: "hello";
+  font-weight: bold;
+  color: blue;
+}
+
+The output would be "helloworld"
+
+*IMPORTANT* under the hood, the code looks something like this:
+<p>
+  [pseudo-element]hello </pseudo-element>
+  world
+</p>
+
+The pseudo-element is placed inside the <p> element but not part of it.
+In other words, you cannot use querySelector to get the pseudo-element because it's not real DOM.
+But you can use javascript to read the value or change its style by changing parent and inheritance
+
+--------------------------------------------------------------------------------------------------
+
+display: flex
+
+By setting a parent container to flex, the DIRECT children fo the parent container becomes flex items.
+*IMPORTANT* grandchildren do not become flex items, just immediate children.
+
+advantages of flex:
+more powerful alignment, more responsive to growth/shrinkage of screen, more responsitive spacing,
+items themselves can shrink/grow dynamically.
+
+by setting a parent to flex, each flex item (direct children) behaves "like" inline-block,
+where if space permits, will align on same row and centered vertically in the parent container.
+
+--------------------------------------------------------------------------------------------------
+
+flex vs inline-flex:
+
+inline-flex turns the parent container into a flex container as well. 
+
+--------------------------------------------------------------------------------------------------
+
+justify-content:
+
+It controls how items are spaced along the MAIN AXIS
+So if flex-direction is row, which is default, then justify-content controls left-right spacing
+
+justify-content distributes extra space inside the container
+*IMPORTANT* justify-content does NOT move items directly, it distributes leftover space
+
+EX:
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+common properties of justify-content:
+flex-start //all items will be positioned on left of parent container
+flex-end //all items will be positioned on right of parent container
+center //all items will be positioned center
+space-around //items will be positioned w/ equal spaces before & after (NOTE: resulting in double space
+                between item. No collapse)
+space-between //item positionedequal space between them but no extra space before/after end elements.
+
+--------------------------------------------------------------------------------------------------
+
+align-items:
+
+Unlike justify-content, align-item controls how items are spaced along the CROSS AXIS (minor axis)
+Just like justify-content, align-items distributes extra space inside the container (assuming
+there is extra space vertically)
+
+EX:
+.container {
+  display: flex;
+  align-items: center;
+}
+
+common properties of align-items:
+flex-start //Items stick to the top of the container. Heights can differ, but their top edges line up
+flex-end //Items stick to the bottom of the container. Their bottom edges line up
+center // align center of each child element box
+baseline //
+stretch // stretch the whole vertical parent container UNLESS element has a specified height.
+
+*IMPORTANT* center align the middle of each flex item’s box. It ignores text specifics.
+baseline uses the baseline of the text inside each item, not the box itself.
+baseline aligns the text like it’s part of one sentence, regardless of each text's font size and shape.
+
+--------------------------------------------------------------------------------------------------
+
+flex-grow:
+
+flex-grow controls how much a flex item expands to fill extra space
+
+*NOTE* flex grow is done on each item NOT the parent container.
+
+EX: 
+.center {
+  width: 100px;
+  flex-grow:2;
+}
+.side {
+  width 100px;
+  flex-grow: 1;
+}
+
+How do you figure out the growth?
+First add up all the numbers and each element is divided by that total number.
+.center: 2 + 1 = 3. 2/3 of total space. So if there's 100px of remaining space, .center will expand by 66px.
+
+*NOTE* If you don't set a width, the browser calculuates a beginning width for you via 
+flex-basis: auto //default if you don't set width and then calculates the growth based on that basis.
+
+
+*IMPORTANT* It's not that flex grow has higher priorty ranking than justify-content. 
+It is that they act at different stages of layout. Browser first calculate the size of each item (including flex factors),
+then the browser takes the remaining space and apply justify-content. It's not a specificity ranking like .class vs #id.
+
+--------------------------------------------------------------------------------------------------
+
+flex-shrink: 
+Like flex-grow, flex-shrink controls how much a flex item reduces in size when there isn’t enough space.
+
+EX:
+.item1 { flex-grow: 1; }
+.item2 { flex-grow: 1; }
+
+vs
+.item1 { flex-shrink: 1; }
+.item2 { flex-shrink: 1; }
+
+
+.item1 width: 50px;
+.item2 width: 200px;
+
+suppose we have 100px extra space. Since items have same flex-growth, each item gets 50px.
+So final width for item1 is 100px and item2 is 250px
+
+suppose we have 100px of space to give up. Who should give up how much?
+beginning size matters. item1 is 20% of total width (50 / (50+200)), it shrinks by 20px.
+item2 is 80% of total width, so it shrinks by 80px.
+
+*IMPORTANT between flex-growth and flex-shrink:
+flex-grow
+“Who gets the extra space?”
+
+👉 Answer: based only on grow ratios
+
+flex-shrink asks:
+
+“Who should give up space?”
+
+👉 Answer: based on how big you already are
+
+*IMPORTANT* flex-growth default is 0, meaning it does not expand unless we specify.
+flex-shrink default is 1, meaning it shrinks unless we specify not to. 
+
+--------------------------------------------------------------------------------------------------
+
+flex
+
+A shorthand to apply flex-grow, flex-shrink, and flex-basis.
+
+EX:
+{
+  flex: 1 2 150px
+}
+
+*IMPORTANT* The difference between flex-basis and width is that flex-basis is the starting size
+to start the algorithm. It takes prescedence over width.
+
+--------------------------------------------------------------------------------------------------
+
+flex-wrap
+
+flex-wrap controls whether flex items stay on one line or wrap onto multiple lines.
+It is applied on the parent container
+
+EX:
+flex-wrap: wrap //allows wrap
+
+*IMPORTANT* when does browser know when to use wrap vs shrink each item?
+If flex-wrap: wrap is ON: The browser chooses geometry over compression.
+wrap takes prescedence over shrink
+
+*VERY IMPORTANT* This is where flex-basis play such an important role. 
+flex-basis size is the natural size. Anything bigger is grow. Anything smaller than it is shrink
+So if an item grows and then regresses, it's not "shrinking" in CSS terminology. It's growing negatively.
+It's only shrinking if it's less than flex-basis.
+Why is this important?
+It's important because wrap takes prescedence over shrinking, but it does NOT take prescedence over negative grow.
+If 2 items grow to fill the container, if you shrink the container by a small amount, the 2nd item will NOT wrap.
+The 2 items will "shrink" (grow negatively) until the flex-basis. Once the container is small than the combined 2
+item's flex-basis, then the 2nd item will wrap and move down to 2nd row.
+
+--------------------------------------------------------------------------------------------------
+align-content:
+
+align-content is a CSS property that controls how multiple lines of content are spaced along the cross axis.
+align-items only work for single row. Once you have multiple rows due to wrap, it does not work.
+
+flex-start
+flex-end
+center
+space-between
+space-around
+stretch
+
+--------------------------------------------------------------------------------------------------
+
+flex-direction:
+
+flex-direction can change the orientation of flex items. Instead of items align horizontally, we can have items align vertically.
+
+EX:
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+Remember, flex-direction row is default. By changing to column, vertical is the MAIN axis.
+So justify-content is used to align vertically, and align-items is used to align horizontally.
+
+By changing flex-direction: column, what doe flex-wrap look like?
+Items fill downward first
+When there’s no more vertical space → they wrap into a new column to the right
+
+--------------------------------------------------------------------------------------------------
+
+flex-flow:
+
+short-hand to combined flex direction and flex wrap
+
+.container {
+  display: flex;
+  flex-flow: column wrap; //first is always direction, second is always wrap
+}
+
+--------------------------------------------------------------------------------------------------
+
+max-width: 100%
+
+One fo the most pwerful techniques to shrink an element such as image proportional to screen size
+is using percentage. 
+
+img {
+  height: auto
+  max-width: 100%
+}
+
+must have height: auto because height will adjust accordingly to width
+
+--------------------------------------------------------------------------------------------------
+
+display: grid
+
+turn container into a grid system. Very powerful to control rows and columns at same time,
+especially for repetitive styles such as blocks of images. Think e-commerce sites
+
+--------------------------------------------------------------------------------------------------
+
+grid-template-columns:
+
+By default, a container has one column. grid-template-columns allow us to add more columns.
+
+EX:
+.container {
+  display: grid;
+  grid-template-columns: 100px 200px;
+}
+
+Here we build a grid system with 2 columns: 1st is 100px wide. 2nd is 200px wide
+
+We can also define the columns via percentage.
+
+EX:
+.container {
+  display: grid;
+  grid-template-columns: 20% 50%;
+}
+ Notice above that total does not equal to 100%. The remaining 30% is just free space.
+
+ --------------------------------------------------------------------------------------------------
+
+ grid-template-rows:
+
+ EX:
+ .container {
+  grid-template-rows: 40% 50% 50px;
+ }
+
+ Again, like columns, you can create rows using percent, pixels or a combination. 
+
+  --------------------------------------------------------------------------------------------------
+
+  grid-template:
+
+  shorthand property to specify both row and column.
+
+  .container {
+    display: grid;
+    width: 1000px;
+    height: 500px;
+    grid-template: 200px 10% / 20% 50px 70%
+  }
+
+  The first set before the / is size of each row
+  The second set after the / is size of each column
+
+--------------------------------------------------------------------------------------------------
+
+fraction unit (fr)
+
+“Take the leftover space in the container and divide it proportionally.”
+Each proportional part is 1 fr.
+
+EX:
+grid-template-columns: 1fr 2fr;
+
+Here we have 2 column. Column 1 gets 1/3 of the available space. Column 2 gets 2/3 of the available space.
+
+--------------------------------------------------------------------------------------------------
+
+repeat:
+
+what if you want to make 10 rows?
+repeat is a function in css that allos a defined interval to be repeated.
+
+EX:
+.grid {
+  display: grid;
+  width: 300px;
+  grid-template-columns: repeat(3, 100px)
+}
+
+The 3 represents repeated how many times. The 100px is the interval to be repeated.
+Here we are saying we want to make 3 columns, each 100px wide.
+
+The second parameter can have multiple values
+EX: repeat(2, 20px 50px) // Here we want to repeat 20px & 50px twice, so 4 columns total.
+
+--------------------------------------------------------------------------------------------------
+
+minmax
+
+What if I want a column (or multiple columns) to be dynamic while other columns width to be static?
+
+EX:
+.grid {
+  display: grid;
+  grid-template-columns: 100px minmax(100px 500px) 100px;
+}
+
+Here the 1st and 3rd column is set at 100px. However column 2 can be adjusted between 100px to 500px
+depending on size of screen. 
+
+
+--------------------------------------------------------------------------------------------------
+
+grid gap:
+
+Add space (gaps) between rows & columns
+
+.grid {
+  display: grid;
+  width: 320px;
+  grid-template-columns: repeat(3, 1fr)
+  column-gap: 10px;
+}
+
+The column-gap adds 10px between each of the 3 columns (so 2 gaps)
+*IMPORTANT* There is no gap before or after the end columns, only between.
+For column width "1fr" is calculated after subtracting the column-gap because the gaps are NOT considered
+available space.
+
+row-gap: 10px
+column-gap: 10px
+gap: 20px 10px // Here gap is shorthand create space for row and col at same time
+
+--------------------------------------------------------------------------------------------------
+
+items taking multiple rows/columns
+
+What if you have elements that wants to take up 2 rows starting at row 3?
+
+EX:
+.item {
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+Here .item takes up 2 rows. grid-row-end is exclusive, meaning row 5 is NOT included.
+
+EX:
+.item {
+  grid-column-start: 2;
+  grid-column-end: ;
+}
+
+Here .item takes up 2 columns.
+
+*NOTE* if there's not enough rows and columns (you didn't explicitly define it),
+the browser will create implicit rows and columns for you.
+
+--------------------------------------------------------------------------------------------------
+
+span keyword
+
+instead of figuring out the start and end row/column, you can use span to tell how many spaces to occupy
+
+EX:
+.item {
+  grid-column: 4 / span 2
+}
+
+Here it means start at column 4 and take up the next 2 columns including the starting column
+
+--------------------------------------------------------------------------------------------------
+
+grid-area:
+
+combine row/column start/end into one declaration. 
+
+EX:
+.item {
+  grid-area: 2/3/4/span 5;
+}
+
+Here 2 is row start, 3 is column start, 4 is row end, span 5 is column end.
+
+--------------------------------------------------------------------------------------------------
+
+
