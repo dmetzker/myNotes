@@ -753,4 +753,106 @@ Here 2 is row start, 3 is column start, 4 is row end, span 5 is column end.
 
 --------------------------------------------------------------------------------------------------
 
+grid-template-area:
+
+lets you visually design your layout using names instead of numbers
+
+EX:
+.container {
+  display: grid;
+
+  grid-template-columns: 1fr 3fr;
+
+  grid-template-areas:
+    "header header"
+    "sidebar content"
+    "footer footer";
+}
+
+Now each of the sections have a name associated with it.
+
+<div class="container">
+  <header>Hello</header>
+</div>
+
+header {
+  grid-area: header;
+}
+
+Now header will occupy all of row 1.
+
+
+*IMPORTANT* Even though in HTML, box1 comes before box2, grid-template-areas simply change the order as a VISUAL.
+It did not change the HTML DOM. 
+Simple analogy: "You are telling the browser where to place the furniture in a room,
+but you aren't changing the order in which the furniture was delivered to the house."
+
+--------------------------------------------------------------------------------------------------
+
+justify-items:
+
+justify-items controls horizontal alignment of items inside their grid cells.
+
+Not the grid. Not the layout. Just the content inside each cell.
+
+EX:
+.container {
+  display: grid;
+  justify-items: center;
+}
+
+This will place each item inside the parent container to the center of each cell. 
+
+justify-items: start, end, center, stretch // different choices
+
+--------------------------------------------------------------------------------------------------
+
+justify-content:
+
+In Grid, justify-content aligns the entire grid inside the container (horizontally), assuming there’s available space.
+
+EX:
+.container {
+  width: 600px;
+  display: grid;
+  grid-template-columns: 100px 100px 100px;
+  justify-content: center
+}
+
+Here the grid only takes up 300px, with 300px of available space.
+With justify-content, the browser moves the grid to center and give 150px to each end of grid. 
+*REMEMBER* justify-content does nothing to the content inside the grid, only the grid itself.
+To move content inside grid, you would need to use justify-items.
+
+justify-content:
+start
+end
+center
+stretch
+space-around // if there's multiple grids inside container, equal spaces each side
+space-between // equal amount of spaces between grids, but no space at either end
+space-evenly // spaces around multiple grids including ends but no doubld space betwee grids.
+
+--------------------------------------------------------------------------------------------------
+
+justify-self: 
+
+What if the parent container set all child to center, but you want one of them to be left.
+
+EX:
+.item {
+  justify-self: start;
+}
+
+You can override the parent container declaration by justify-self set on the particular child you want to override.
+
+
+--------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
