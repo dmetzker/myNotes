@@ -835,7 +835,7 @@ space-evenly // spaces around multiple grids including ends but no doubld space 
 
 --------------------------------------------------------------------------------------------------
 
-justify-self: 
+justify-self & align-self: 
 
 What if the parent container set all child to center, but you want one of them to be left.
 
@@ -846,12 +846,49 @@ EX:
 
 You can override the parent container declaration by justify-self set on the particular child you want to override.
 
+*IMPORTANT IMPORTANT* justify always control MAIN axis, not horizontal axis
+align always control CROSS axis, not vertical axis.
 
 --------------------------------------------------------------------------------------------------
 
+align-content & align-items:
 
+While justify controls the main axis, in this case, horizontal axis, align controls the cross axis.
+align-content controls the entire grid as a whole inside the container on the vertical movement.
+align-items controls how each individual item sits inside its own grid cell. 
 
+--------------------------------------------------------------------------------------------------
 
+grid-auto-rows & grid-auto-columns:
+
+while css implicitly build more rows, the size of row is by default as large as the content in it.
+We can change is behavior with grid-auto-rows.
+
+EX:
+body {
+  display: grid;
+  grid-auto-rows: 50px;
+}
+
+Here we explicitly state that any new row made will be 50px high.
+
+How does grid-auto-columns work?
+Browser doesn't automatically make new columns, only new rows if needed.
+It does if you explicitly place somethign beyond existing columns
+
+ EX:
+.container {
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-auto-columns: 50px;
+}
+
+.item {
+  grid-column: 4;
+}
+
+Here we define 2 columns but we explicitly placed item in column 4.
+Browser sees no 4 columns thus will make implicit columns with 50px wide.
 
 
 
